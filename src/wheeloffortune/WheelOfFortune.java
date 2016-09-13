@@ -28,29 +28,32 @@ public class WheelOfFortune {
 	public static int getUserInput(){
 		int userInp = 0;
 		Scanner numbInp = new Scanner(System.in); //Scanner object for ints and floats
+		boolean run = true;
+		while(run == true){
+			//Display to the user the instructions
+			displayInstructions();
 
-
-		//Display to the user the instructions
-		displayInstructions();
-
-		//Exception handling if the user inputs something other than an int
-		try{
-			userInp = numbInp.nextInt();
-
-
-			//input validation to make sure user selects a valid int
-			while(userInp < 1 || userInp > 4)
-			{
-				System.out.println("Invalid input, pick a number 1 through 4.");
-				displayInstructions();
+			//Exception handling if the user inputs something other than an int
+			try{
 				userInp = numbInp.nextInt();
+
+
+				//input validation to make sure user selects a valid int
+				while(userInp < 1 || userInp > 4)
+				{
+					System.out.println("Invalid input, pick a number 1 through 4.");
+					displayInstructions();
+					userInp = numbInp.nextInt();
+				}
 			}
+			catch(InputMismatchException E){
+				System.out.println("Invalid input, pick a number 1 through 4.");
+				numbInp.next();
+				continue;
+			}
+			run = false;
 		}
-		catch(InputMismatchException E){
-			System.out.println("Invalid input, pick a number 1 through 4.");
-			numbInp.next();
-			getUserInput();
-		}
+
 		return userInp;
 	}
 
