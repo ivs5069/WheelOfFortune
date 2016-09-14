@@ -8,6 +8,7 @@
  */
 package wheeloffortune;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -23,8 +24,8 @@ public class WheelOfFortune {
                 + "\n4. Quit the Game");
 
     }
-    //method to get users input
 
+    //method to get users input
     public static int getUserInput() {
         int userInp = 0;
         Scanner numbInp = new Scanner(System.in); //Scanner object for ints and floats
@@ -59,6 +60,31 @@ public class WheelOfFortune {
     }
 
     /**
+     * Method to guess a letter
+     * @return userChar
+     */
+    public static String getLetter(){
+        String userChar = "a";
+        Scanner charInput = new Scanner(System.in); //Scanner object for char inputs
+        
+        //Ask the user for a letter and store that input in userChar
+        System.out.println("Please enter a single letter to guess: ");
+        userChar = charInput.next();
+        
+        //Ensure that the input was a single alphabetical character
+        while(userChar.length() > 2 || !(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L","M", "N", "O", "P" ,"Q", "R", "S"
+                + "T", "U" ,"V", "W", "X", "Y" ,"Z").contains(userChar.toUpperCase() ) ) )
+       {
+            System.out.println("Please only enter a single alphabetical character. Please input again: ");
+            userChar = charInput.next();
+       }
+                
+        
+        
+        return userChar;
+    }
+    
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -68,11 +94,11 @@ public class WheelOfFortune {
             int userInput = getUserInput();
             //If user selects spin wheel
             switch (userInput) {
-            //if user selects buy a vowel
+                //if user selects buy a vowel
                 case 1:
                     System.out.println("You have selected: Spin the Wheel.");
                     break;
-            //if user selects solve puzzle
+                //if user selects solve puzzle
                 case 2:
                     System.out.println("You have selected: Buy a Vowel.");
                     break;
