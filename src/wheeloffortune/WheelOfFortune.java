@@ -18,10 +18,10 @@ public class WheelOfFortune {
 	public static void displayInstructions(){
 
 		System.out.println("Please select an option by entering the number:"
-				+ "\n1. Spin the wheel"
-				+ "\n2. Buy a vowel"
-				+ "\n3. Solve the puzzle"
-				+ "\n4. Quit the game\n");
+				+ "\n1. Spin the Wheel"
+				+ "\n2. Buy a Vowel"
+				+ "\n3. Solve the Puzzle"
+				+ "\n4. Quit the Game");
 
 	}
 	//method to get users input
@@ -29,6 +29,8 @@ public class WheelOfFortune {
 		int userInp = 0;
 		Scanner numbInp = new Scanner(System.in); //Scanner object for ints and floats
 		boolean run = true;
+
+		//If the loop manages to complete, the user entered a valid input
 		while(run == true){
 			//Display to the user the instructions
 			displayInstructions();
@@ -48,7 +50,9 @@ public class WheelOfFortune {
 			}
 			catch(InputMismatchException E){
 				System.out.println("Invalid input, pick a number 1 through 4.");
+				//Clear out the Scanner, otherwise it will infinitly loop
 				numbInp.next();
+				//Return to the top of the while loop
 				continue;
 			}
 			run = false;
@@ -64,9 +68,37 @@ public class WheelOfFortune {
 	public static void main(String[] args) {
 
 		//Get the users input and assign it to userInput variable
-		int userInput = getUserInput();
-		System.out.println("You have selected: " + userInput);
 
+
+
+		while (true){
+
+			//Get the users input and assign it to userInput variable    
+			int userInput = getUserInput();
+
+
+			//If user selects spin wheel
+			if(userInput == 1){
+				System.out.println("You have selected: Spin the Wheel.");
+				continue;
+			}
+
+			//if user selects buy a vowel
+			else if(userInput == 2){
+				System.out.println("You have selected: Buy a Vowel.");
+			}
+
+			//if user selects solve puzzle
+			else if(userInput == 3) {
+				System.out.println("You have selected: Solve the Puzzle.");
+			}
+
+			else if(userInput == 4) {
+				System.out.println("You have selected: Quit the Game.");
+				System.out.println("Quitting the game");
+				break;
+			}
+		}
 	}
 
 
