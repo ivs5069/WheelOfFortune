@@ -17,12 +17,14 @@ public class WheelOfFortune {
     //method to print out instructions
     public static void displayInstructions() {
 
-        System.out.println("Please select an option by entering the number:"
-                + "\n1. Spin the Wheel"
-                + "\n2. Buy a Vowel"
-                + "\n3. Solve the Puzzle"
-                + "\n4. Quit the Game"
-                + "\n5. TEST");
+        System.out.println("\t\t======================"
+                + "\n\t\t=  Wheel Of Fortune  ="
+                + "\n\t\t======================"
+                + "\n1. Spin the wheel"
+                + "\n2. Buy a vowel"
+                + "\n3. Solve the puzzle"
+                + "\n4. Quit"
+                + "\n9. Test letter input");
 
     }
 
@@ -30,31 +32,29 @@ public class WheelOfFortune {
     public static int getUserInput() {
         int userInp = 0;
         Scanner numbInp = new Scanner(System.in); //Scanner object for ints and floats
-        boolean run = true;
 
-        //If the loop manages to complete, the user entered a valid input
-        while (run == true) {
-            //Display to the user the instructions
-            displayInstructions();
+        //Display to the user the instructions
+        displayInstructions();
+        
+        System.out.print("Enter choice: ");
 
-            //Exception handling if the user inputs something other than an int
-            try {
+        //Exception handling if the user inputs something other than an int
+        try {
+            userInp = numbInp.nextInt();
+
+            //input validation to make sure user selects a valid int
+            while (userInp < 1 || userInp > 9) {
+                System.out.println("\n\nInvalid input, pick a number 1 through 9.");
+                displayInstructions();
                 userInp = numbInp.nextInt();
-
-                //input validation to make sure user selects a valid int
-                while (userInp < 1 || userInp > 5) {
-                    System.out.println("Invalid input, pick a number 1 through 5.");
-                    displayInstructions();
-                    userInp = numbInp.nextInt();
-                }
-            } catch (InputMismatchException E) {
-                System.out.println("Invalid input, pick a number 1 through 5.");
-                //Clear out the Scanner, otherwise it will infinitly loop
-                numbInp.next();
-                //Return to the top of the while loop
-                continue;
             }
-            run = false;
+        } catch (InputMismatchException E) {
+            System.out.println("\n\nInvalid input, pick a number 1 through 9.");
+            //Clear out the Scanner, otherwise it will infinitly loop
+            numbInp.next();
+            //Return to the top of the while loop
+            userInp = getUserInput();
+
         }
 
         return userInp;
@@ -70,13 +70,12 @@ public class WheelOfFortune {
         Scanner charInput = new Scanner(System.in); //Scanner object for char inputs
 
         //Ask the user for a letter and store that input in userChar
-        System.out.println("Please enter a single letter to guess: ");
+        System.out.print("Please enter a single letter to guess: ");
         userChar = charInput.next();
 
         //Ensure that the input was a single alphabetical character
-        while (userChar.length() > 2 || !(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z").contains(userChar.toUpperCase()))) 
-        {
-            System.out.println("Please only enter a single alphabetical character. Please input again: ");
+        while (userChar.length() > 2 || !(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z").contains(userChar.toUpperCase()))) {
+            System.out.print("Please only enter a single alphabetical character. Please input again: ");
             userChar = charInput.next();
         }
 
@@ -84,67 +83,9 @@ public class WheelOfFortune {
         return userChar;
     }
 
-    public static void test() {
-
-        int userInp = 0;
-
-        Scanner numbInp = new Scanner(System.in); //Scanner object for ints
-        boolean run = true;
-
-        //If the loop manages to complete, the user entered a valid input
-        while (run == true) {
-            //Display to the user the instructions
-            System.out.println("Test Menu"
-                    + "\n1. Test letter input"
-                    + "\n2. Quit");
-            //Exception handling if the user inputs something other than an int
-            try {
-                userInp = numbInp.nextInt();
-
-                //input validation to make sure user selects a valid int
-                while (userInp < 1 || userInp > 2) {
-                    System.out.println("Invalid input, pick a number 1 through 2.");
-                    System.out.println("Test Menu"
-                            + "\n1. Test letter input"
-                            + "\n2. Quit");
-                    userInp = numbInp.nextInt();
-                }
-            } catch (InputMismatchException E) {
-                System.out.println("Invalid input, pick a number 1 through 2.");
-                System.out.println("Test Menu"
-                        + "\n1. Test letter input"
-                        + "\n2. Quit");
-                //Clear out the Scanner, otherwise it will infinitly loop
-                numbInp.next();
-                //Return to the top of the while loop
-                continue;
-            }
-            run = false;
-        }
-
-        OUTER:
-        while (true) {
-            switch (userInp) {
-                //if dev picks test letter
-                case 1:
-                    System.out.println("You have selected: Test a letter.");
-                    String a = getLetter();
-                    System.out.println("Letter " + a + " was returned.");
-                    break OUTER;
-                //if dev selects quit
-                case 2:
-                    System.out.println("You have selected: Leave test menu.");
-                    System.out.println("Leaving test menu.");
-                    break OUTER;
-                default:
-                    break;
-            }
-
-        }
-    }
-        /**
-         * @param args the command line arguments
-         */
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
 
         OUTER:
@@ -154,22 +95,22 @@ public class WheelOfFortune {
             switch (userInput) {
                 //if user selects buy a vowel
                 case 1:
-                    System.out.println("You have selected: Spin the Wheel.");
+                    System.out.println("You have selected: Spin the wheel.");
                     break;
                 //if user selects solve puzzle
                 case 2:
-                    System.out.println("You have selected: Buy a Vowel.");
+                    System.out.println("You have selected: Buy a vowel.");
                     break;
                 case 3:
-                    System.out.println("You have selected: Solve the Puzzle.");
+                    System.out.println("You have selected: Solve the puzzle.");
                     break;
                 case 4:
-                    System.out.println("You have selected: Quit the Game.");
+                    System.out.println("You have selected: Quit");
                     System.out.println("Quitting the game");
                     break OUTER;
-                case 5:
-                    System.out.println("You have selected: TEST");
-                    test();
+                case 9:
+                    System.out.println("You have selected: Test letter input.");
+                    System.out.println("You have selected: " + getLetter());
                     break;
                 default:
                     break;
