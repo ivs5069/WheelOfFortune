@@ -17,11 +17,13 @@ public class WheelOfFortune {
 
     //method to print out instructions
     public static void displayInstructions() {
-
+        PuzzleBoard puzzle = new PuzzleBoard();
         System.out.println("\t\t======================"
                 + "\n\t\t=  Wheel Of Fortune  ="
-                + "\n\t\t======================"
-                + "\n1. Spin the wheel"
+                + "\n\t\t======================\n");
+
+        puzzle.getPuzzleBoard();
+        System.out.println("\n\n1. Spin the wheel"
                 + "\n2. Buy a vowel"
                 + "\n3. Solve the puzzle"
                 + "\n4. Quit"
@@ -36,7 +38,7 @@ public class WheelOfFortune {
 
         //Display to the user the instructions
         displayInstructions();
-        
+
         System.out.print("Enter choice: ");
 
         //Exception handling if the user inputs something other than an int
@@ -83,31 +85,33 @@ public class WheelOfFortune {
         System.out.println("The letter you chose was: " + userChar);
         return userChar;
     }
-    
+
     /**
      * Method to spin the wheel
      */
-    public static String spinWheel()
-    {
+    public static String spinWheel() {
         //Create an array to store the wheel wedges
         //Wedges held as STRINGS, numbers will be parsed when they will be used.
         //If wedge != 'bankrupt' OR wedge != 'LOSE A TURN': parse int wedge
-        String[] wedge = {"$5000", "$600","$500","$300","$500","$800","$550","$400","$300","$900","$500","$300","$900","BANKRUPT","$600","$400","$300","LOSE A TURN","$800","$350","$450","$700","$300","$600"};
-    
+        String[] wedge = {"$5000", "$600", "$500", "$300", "$500", "$800", "$550", "$400", "$300", "$900", "$500", "$300", "$900", "BANKRUPT", "$600", "$400", "$300", "LOSE A TURN", "$800", "$350", "$450", "$700", "$300", "$600"};
+
         //Initialize a random object
         Random ran = new Random();
-        
+
         //Get a random wedge by picking a random index in the array
         String spunWedge = wedge[ran.nextInt(wedge.length)];
-        
+
         //return the random wedge
         return spunWedge;
-    
+
     }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+
 
         OUTER:
         while (true) {
