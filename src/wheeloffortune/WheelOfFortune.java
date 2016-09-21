@@ -10,6 +10,7 @@ package wheeloffortune;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class WheelOfFortune {
@@ -82,7 +83,27 @@ public class WheelOfFortune {
         System.out.println("The letter you chose was: " + userChar);
         return userChar;
     }
-
+    
+    /**
+     * Method to spin the wheel
+     */
+    public static String spinWheel()
+    {
+        //Create an array to store the wheel wedges
+        //Wedges held as STRINGS, numbers will be parsed when they will be used.
+        //If wedge != 'bankrupt' OR wedge != 'LOSE A TURN': parse int wedge
+        String[] wedge = {"$5000", "$600","$500","$300","$500","$800","$550","$400","$300","$900","$500","$300","$900","BANKRUPT","$600","$400","$300","LOSE A TURN","$800","$350","$450","$700","$300","$600"};
+    
+        //Initialize a random object
+        Random ran = new Random();
+        
+        //Get a random wedge by picking a random index in the array
+        String spunWedge = wedge[ran.nextInt(wedge.length)];
+        
+        //return the random wedge
+        return spunWedge;
+    
+    }
     /**
      * @param args the command line arguments
      */
@@ -96,6 +117,7 @@ public class WheelOfFortune {
                 //if user selects buy a vowel
                 case 1:
                     System.out.println("You have selected: Spin the wheel.");
+                    System.out.println("You landed on: " + spinWheel());
                     break;
                 //if user selects solve puzzle
                 case 2:
