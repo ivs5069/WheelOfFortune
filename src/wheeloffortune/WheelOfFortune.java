@@ -16,8 +16,8 @@ import java.util.Scanner;
 public class WheelOfFortune {
 
     //method to print out instructions
-    public static void displayInstructions() {
-        PuzzleBoard puzzle = new PuzzleBoard();
+    public static void displayInstructions(PuzzleBoard puzzle) {
+        
         System.out.println("\t\t======================"
                 + "\n\t\t=  Wheel Of Fortune  ="
                 + "\n\t\t======================\n");
@@ -27,17 +27,18 @@ public class WheelOfFortune {
                 + "\n2. Buy a vowel"
                 + "\n3. Solve the puzzle"
                 + "\n4. Quit"
+                + "\n8. Toggle puzzle reveal"
                 + "\n9. Test letter input");
 
     }
 
     //method to get users input
-    public static int getUserInput() {
+    public static int getUserInput(PuzzleBoard puzzle) {
         int userInp = 0;
         Scanner numbInp = new Scanner(System.in); //Scanner object for ints and floats
 
         //Display to the user the instructions
-        displayInstructions();
+        displayInstructions(puzzle);
 
         System.out.print("Enter choice: ");
 
@@ -48,7 +49,7 @@ public class WheelOfFortune {
             //input validation to make sure user selects a valid int
             while (userInp < 1 || userInp > 9) {
                 System.out.println("\n\nInvalid input, pick a number 1 through 9.");
-                displayInstructions();
+                displayInstructions(puzzle);
                 userInp = numbInp.nextInt();
             }
         } catch (InputMismatchException E) {
@@ -56,7 +57,7 @@ public class WheelOfFortune {
             //Clear out the Scanner, otherwise it will infinitly loop
             numbInp.next();
             //Return to the top of the while loop
-            userInp = getUserInput();
+            userInp = getUserInput(puzzle);
 
         }
 
@@ -111,17 +112,19 @@ public class WheelOfFortune {
      */
     public static void main(String[] args) {
 
+        PuzzleBoard puzzle = new PuzzleBoard();
 
-
-        OUTER:
-        while (true) {
-            int userInput = getUserInput();
+        //Quit flag for the while loop
+        boolean quit = false;
+        while (!quit) {
+            int userInput = getUserInput(puzzle);
             //If user selects spin wheel
             switch (userInput) {
                 //if user selects buy a vowel
                 case 1:
                     System.out.println("You have selected: Spin the wheel.");
                     System.out.println("You landed on: " + spinWheel());
+                    puzzle.guessLetter(getLetter().toUpperCase());
                     break;
                 //if user selects solve puzzle
                 case 2:
@@ -133,7 +136,12 @@ public class WheelOfFortune {
                 case 4:
                     System.out.println("You have selected: Quit");
                     System.out.println("Quitting the game");
-                    break OUTER;
+                    quit = true;
+                    break;
+                case 8:
+                    System.out.println("You have selected: Puzzle Reveal");
+                    puzzle.toggleReveal();
+                    break;
                 case 9:
                     System.out.println("You have selected: Test letter input.");
                     System.out.println("You have selected: " + getLetter());

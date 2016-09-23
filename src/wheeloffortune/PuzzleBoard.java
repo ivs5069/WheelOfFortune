@@ -21,7 +21,10 @@ public class PuzzleBoard {
     private ArrayList<String> hiddenLetters = new ArrayList();
 
     //Initialize an object from the random class
-    Random ran = new Random();
+    private Random ran = new Random();
+
+    //Flag on the toggle puzzle reveal
+    private boolean puzzleRevealFlag = false;
 
     public PuzzleBoard() {
 
@@ -41,11 +44,61 @@ public class PuzzleBoard {
 
     }
 
+    /**
+     * Method to display the puzzleboard
+     */
     public void getPuzzleBoard() {
-        for (int i = 0; i < hiddenLetters.size(); i++){
-            System.out.print(hiddenLetters.get(i));
+
+        //If puzzlereveal flag is false don't reveal the answer
+        if (puzzleRevealFlag == false) {
+            //Create a for loop to go through each index of the hidden letters arraylist
+            for (int i = 0; i < hiddenLetters.size(); i++) {
+                //Print out the letter at the index
+                System.out.print(hiddenLetters.get(i));
+            }
+            //Print statement to make sure there's a white space after the puzzle
+            System.out.println(" ");
         }
-        System.out.println(" ");
+        //If puzzle reveal flag is true, reveal the puzzle to the user
+        else if (puzzleRevealFlag == true)
+        {
+            for (int i = 0; i < puzzleSelected.size(); i++)
+            {
+                //Print out the revealed letter at the index
+                System.out.print(puzzleSelected.get(i));
+            }
+            //Print statement to make sure there's a white space after the puzzle
+            System.out.println(" ");
+        }
+    }
+
+    /**
+     * Method to check if the user guessed the write letter
+     *
+     * @param letter
+     */
+    public void guessLetter(String letter) {
+        //Loop through the puzzle selected arraylist
+        for (int i = 0; i < puzzleSelected.size(); i++) {
+            //If letter is in the index of puzzle selected, set the letter in the hidden puzzle to the correct guessed letter
+            if (Arrays.asList(letter).contains(puzzleSelected.get(i))) {
+                hiddenLetters.set(i, letter);
+            }
+        }
+
+    }
+    
+    /**
+     * Method to toggle the flag
+     */
+    public void toggleReveal(){
+        //if flag is false set it to true
+        if(puzzleRevealFlag == false)
+            puzzleRevealFlag = true;
+        
+        //if it's not false, set it to false
+        else
+            puzzleRevealFlag = false;
     }
 
 }
