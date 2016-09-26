@@ -12,7 +12,7 @@ public class PuzzleBoard {
 
     //Array to hold the possible puzzles the user can choose to guess
     //This may be changed to a hashmap later on to show the catagories
-    private String[] puzzles = {"THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"};
+    private String[] puzzles = {"THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG", "PENN STATE ABINGTON", "INFORMATION SCIENCE AND TECHNOLOGY"};
 
     //Variable to hold the word in the clear
     private ArrayList<String> puzzleSelected = new ArrayList();

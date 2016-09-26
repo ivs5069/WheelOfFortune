@@ -18,7 +18,7 @@ public class WheelOfFortune {
     //method to print out instructions
     public static void displayInstructions(PuzzleBoard puzzle) {
         
-        System.out.println("\t\t======================"
+        System.out.println("\n\t\t======================"
                 + "\n\t\t=  Wheel Of Fortune  ="
                 + "\n\t\t======================\n");
 
