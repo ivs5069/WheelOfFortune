@@ -89,6 +89,29 @@ public class PuzzleBoard {
     }
 
     /**
+     * Method to check whether a letter was guessed yet or not
+     * @param letter
+     * @return boolean. True if already guessed False if not guessed
+     */
+    public boolean checkGuessed(String letter)
+    {
+        //Boolean to hold whether the letter was guessed yet or not
+        boolean guessedFlag = false;
+        //Loop through the masked puzzle
+        for (int i = 0; i < hiddenLetters.size(); i++)
+        {
+            //If the letter is contained in the masked string, set the flag to true
+            if (Arrays.asList(letter).contains(hiddenLetters.get(i)))
+            {
+                guessedFlag = true;
+            }
+            
+            //If the letter is not contained at all in the masked string, boolean remains false such as in initialization
+        }
+        
+        return guessedFlag;
+    }
+    /**
      * Method to toggle the flag
      */
     public void toggleReveal() {

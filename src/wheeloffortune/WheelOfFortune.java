@@ -113,7 +113,7 @@ public class WheelOfFortune {
         System.out.println("You landed on: " + spunWedge);
 
         //If the user lands on any of the wedges that contain money
-        if (!"BANKRUPT".equals(spunWedge) || !"LOSE A TURN".equals(spunWedge)) {
+        if (!"BANKRUPT".equals(spunWedge) && !"LOSE A TURN".equals(spunWedge)) {
             //Guess a letter and set moneyEarned to the amount of times it was rolled times the worth of the value
             moneyEarned = Integer.parseInt(spunWedge.substring(1) ) * puzzle.guessLetter(getLetter().toUpperCase());
         }
