@@ -58,12 +58,9 @@ public class PuzzleBoard {
             }
             //Print statement to make sure there's a white space after the puzzle
             System.out.println(" ");
-        }
-        //If puzzle reveal flag is true, reveal the puzzle to the user
-        else if (puzzleRevealFlag == true)
-        {
-            for (int i = 0; i < puzzleSelected.size(); i++)
-            {
+        } //If puzzle reveal flag is true, reveal the puzzle to the user
+        else if (puzzleRevealFlag == true) {
+            for (int i = 0; i < puzzleSelected.size(); i++) {
                 //Print out the revealed letter at the index
                 System.out.print(puzzleSelected.get(i));
             }
@@ -75,30 +72,33 @@ public class PuzzleBoard {
     /**
      * Method to check if the user guessed the write letter
      *
-     * @param letter
+     * @param letter returns how many times the user guessed the letter
      */
-    public void guessLetter(String letter) {
+    public int guessLetter(String letter) {
+        //Variable to hold how many times the user guessed the letter
+        int timesGuessed = 0;
         //Loop through the puzzle selected arraylist
         for (int i = 0; i < puzzleSelected.size(); i++) {
             //If letter is in the index of puzzle selected, set the letter in the hidden puzzle to the correct guessed letter
             if (Arrays.asList(letter).contains(puzzleSelected.get(i))) {
                 hiddenLetters.set(i, letter);
+                timesGuessed++;
             }
         }
-
+        return timesGuessed;
     }
-    
+
     /**
      * Method to toggle the flag
      */
-    public void toggleReveal(){
+    public void toggleReveal() {
         //if flag is false set it to true
-        if(puzzleRevealFlag == false)
+        if (puzzleRevealFlag == false) {
             puzzleRevealFlag = true;
-        
-        //if it's not false, set it to false
-        else
+        } //if it's not false, set it to false
+        else {
             puzzleRevealFlag = false;
+        }
     }
 
 }

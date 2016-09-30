@@ -16,13 +16,17 @@ import java.util.Scanner;
 public class WheelOfFortune {
 
     //method to print out instructions
-    public static void displayInstructions(PuzzleBoard puzzle) {
-        
+    public static void displayInstructions(PuzzleBoard puzzle, int moneyEarned) {
+
         System.out.println("\n\t\t======================"
                 + "\n\t\t=  Wheel Of Fortune  ="
                 + "\n\t\t======================\n");
 
         puzzle.getPuzzleBoard();
+
+        //Print out how much money the user made
+        System.out.printf("\nYou have made $%d ", moneyEarned);
+
         System.out.println("\n\n1. Spin the wheel"
                 + "\n2. Buy a vowel"
                 + "\n3. Solve the puzzle"
@@ -33,12 +37,12 @@ public class WheelOfFortune {
     }
 
     //method to get users input
-    public static int getUserInput(PuzzleBoard puzzle) {
+    public static int getUserInput(PuzzleBoard puzzle, int moneyEarned) {
         int userInp = 0;
         Scanner numbInp = new Scanner(System.in); //Scanner object for ints and floats
 
         //Display to the user the instructions
-        displayInstructions(puzzle);
+        displayInstructions(puzzle, moneyEarned);
 
         System.out.print("Enter choice: ");
 
@@ -49,7 +53,7 @@ public class WheelOfFortune {
             //input validation to make sure user selects a valid int
             while (userInp < 1 || userInp > 9) {
                 System.out.println("\n\nInvalid input, pick a number 1 through 9.");
-                displayInstructions(puzzle);
+                displayInstructions(puzzle, moneyEarned);
                 userInp = numbInp.nextInt();
             }
         } catch (InputMismatchException E) {
@@ -57,7 +61,7 @@ public class WheelOfFortune {
             //Clear out the Scanner, otherwise it will infinitly loop
             numbInp.next();
             //Return to the top of the while loop
-            userInp = getUserInput(puzzle);
+            userInp = getUserInput(puzzle, moneyEarned);
 
         }
 
@@ -89,22 +93,36 @@ public class WheelOfFortune {
 
     /**
      * Method to spin the wheel
+     *
+     * @param puzzle
+     * @param moneyEarned
+     * @return moneyEarned
      */
-    public static String spinWheel() {
+    public static int spinWheel(PuzzleBoard puzzle, int moneyEarned) {
         //Create an array to store the wheel wedges
         //Wedges held as STRINGS, numbers will be parsed when they will be used.
         //If wedge != 'bankrupt' OR wedge != 'LOSE A TURN': parse int wedge
         String[] wedge = {"$5000", "$600", "$500", "$300", "$500", "$800", "$550", "$400", "$300", "$900", "$500", "$300", "$900", "BANKRUPT", "$600", "$400", "$300", "LOSE A TURN", "$800", "$350", "$450", "$700", "$300", "$600"};
-
+        int timesLanded = 0;
         //Initialize a random object
         Random ran = new Random();
 
         //Get a random wedge by picking a random index in the array
         String spunWedge = wedge[ran.nextInt(wedge.length)];
 
-        //return the random wedge
-        return spunWedge;
+        System.out.println("You landed on: " + spunWedge);
 
+        //If the user lands on any of the wedges that contain money
+        if (!"BANKRUPT".equals(spunWedge) || !"LOSE A TURN".equals(spunWedge)) {
+            //Guess a letter and set moneyEarned to the amount of times it was rolled times the worth of the value
+            moneyEarned = Integer.parseInt(spunWedge.substring(1) ) * puzzle.guessLetter(getLetter().toUpperCase());
+        }
+        else
+        {
+            puzzle.guessLetter(getLetter().toUpperCase());
+        }
+
+        return moneyEarned;
     }
 
     /**
@@ -114,17 +132,17 @@ public class WheelOfFortune {
 
         PuzzleBoard puzzle = new PuzzleBoard();
 
+        int moneyEarned = 0;
         //Quit flag for the while loop
         boolean quit = false;
         while (!quit) {
-            int userInput = getUserInput(puzzle);
+            int userInput = getUserInput(puzzle, moneyEarned);
             //If user selects spin wheel
             switch (userInput) {
                 //if user selects buy a vowel
                 case 1:
                     System.out.println("You have selected: Spin the wheel.");
-                    System.out.println("You landed on: " + spinWheel());
-                    puzzle.guessLetter(getLetter().toUpperCase());
+                    moneyEarned += spinWheel(puzzle, moneyEarned);
                     break;
                 //if user selects solve puzzle
                 case 2:
