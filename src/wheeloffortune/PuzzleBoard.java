@@ -45,7 +45,30 @@ public class PuzzleBoard {
     }
 
     /**
-     * Method to display the puzzleboard
+     * Method to return length of the puzzle
+     */
+    public int getPuzzleLength() {
+        return puzzleSelected.size();
+    }
+
+    /**
+     * Method to see if a letter is contained within the puzzle
+     */
+    public boolean checkLetterContained(String letter) {
+        boolean containFlag = false;
+
+        for (int i = 0; i < puzzleSelected.size(); i++) {
+            //If the letter is contained in the puzzle string, set the flag to true
+            if (Arrays.asList(letter).contains(puzzleSelected.get(i))) {
+                containFlag = true;
+            }
+        }
+        return containFlag;
+    }
+
+    
+    /**
+     * Method to display the puzzle board
      */
     public void getPuzzleBoard() {
 
@@ -90,29 +113,46 @@ public class PuzzleBoard {
 
     /**
      * Method to check whether a letter was guessed yet or not
+     *
      * @param letter
      * @return boolean. True if already guessed False if not guessed
      */
-    public boolean checkGuessed(String letter)
-    {
+    public boolean checkGuessed(String letter) {
         //Boolean to hold whether the letter was guessed yet or not
         boolean guessedFlag = false;
         //Loop through the masked puzzle
-        for (int i = 0; i < hiddenLetters.size(); i++)
-        {
+        for (int i = 0; i < hiddenLetters.size(); i++) {
             //If the letter is contained in the masked string, set the flag to true
-            if (Arrays.asList(letter).contains(hiddenLetters.get(i)))
-            {
+            if (Arrays.asList(letter).contains(hiddenLetters.get(i))) {
                 guessedFlag = true;
             }
-            
+
             //If the letter is not contained at all in the masked string, boolean remains false such as in initialization
         }
-        
+
         return guessedFlag;
     }
+    
     /**
-     * Method to toggle the flag
+     * Method to see if the index of the puzzle is masked
+     * @param index
+     * @return true if masked, false if not masked
+     */
+    public boolean checkMaskLocated(int index)
+    {
+        //if the hidden letter is masked return true
+        if(hiddenLetters.get(index) == "_")
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+            
+
+    /**
+     * Method to toggle the mask flag
      */
     public void toggleReveal() {
         //if flag is false set it to true
