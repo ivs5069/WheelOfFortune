@@ -84,7 +84,7 @@ public class WheelOfFortune {
 
         //Ask the user for a letter and store that input in userChar
         System.out.print("Please enter a single letter to guess: ");
-        userChar = charInput.next();
+        userChar = charInput.next().toUpperCase();
         //Make sure the letter was not guessed yet
         guessedFlag = puzzle.checkGuessed(userChar);
 
@@ -189,24 +189,25 @@ public class WheelOfFortune {
         System.out.println("Please print out your guess of the board. If you guess a letter wrong you lose.");
 
         //Loop over the length of the string
-        for (int i = 0; i < puzzle.getPuzzleLength(); i++) {
+        while (true) {
             //If the letter is masked let the user guess, if not masked then go to the next unmasked letter
-            if (puzzle.checkMaskLocated(i)) {
-                //Display to the user the board
-                puzzle.getPuzzleBoard();
-                letterGuess = getLetter(puzzle).toUpperCase();
-                puzzle.guessLetter(letterGuess);
 
-                //Check if the letter is contained within the puzzle selected. If it is contained return a true for gameOverFlag
-                if (puzzle.checkLetterContained(letterGuess) == false) {
-                    System.out.println("Wrong. Game over.");
-                    gameOverFlag = true;
-                    break;
-                }
+            //Display to the user the board
+            puzzle.getPuzzleBoard();
+            letterGuess = getLetter(puzzle).toUpperCase();
+            puzzle.guessLetter(letterGuess);
+
+            //Check if the letter is contained within the puzzle selected. If it is contained return a true for gameOverFlag
+            if (puzzle.checkLetterContained(letterGuess) == false) {
+                System.out.println("Wrong. Game over.");
+                gameOverFlag = true;
             }
-
+            gameOverFlag = puzzle.getWinFlag();
+            //Break if gameOverFlag is hit
+            if (gameOverFlag) {
+                break;
+            }
         }
-
         return gameOverFlag;
 
     }
@@ -222,6 +223,7 @@ public class WheelOfFortune {
         //Quit flag for the while loop
         boolean quit = false;
         while (!quit) {
+            quit = puzzle.getWinFlag();
             int userInput = getUserInput(puzzle, moneyEarned);
             //If user selects spin wheel
             switch (userInput) {

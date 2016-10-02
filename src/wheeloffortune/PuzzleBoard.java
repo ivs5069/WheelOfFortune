@@ -26,6 +26,9 @@ public class PuzzleBoard {
     //Flag on the toggle puzzle reveal
     private boolean puzzleRevealFlag = false;
 
+    //Flag on if the user won
+    private boolean winFlag = false;
+
     public PuzzleBoard() {
 
         String tempPuzzleHolder = puzzles[ran.nextInt(puzzles.length)];
@@ -52,6 +55,15 @@ public class PuzzleBoard {
     }
 
     /**
+     * Method to get the win flag
+     *
+     * @return winflag
+     */
+    public boolean getWinFlag() {
+        return winFlag;
+    }
+
+    /**
      * Method to see if a letter is contained within the puzzle
      */
     public boolean checkLetterContained(String letter) {
@@ -66,7 +78,6 @@ public class PuzzleBoard {
         return containFlag;
     }
 
-    
     /**
      * Method to display the puzzle board
      */
@@ -108,6 +119,10 @@ public class PuzzleBoard {
                 timesGuessed++;
             }
         }
+        
+        //Check if the user guessed all of the letters
+        checkWinStatus();
+        
         return timesGuessed;
     }
 
@@ -132,24 +147,41 @@ public class PuzzleBoard {
 
         return guessedFlag;
     }
-    
+
     /**
      * Method to see if the index of the puzzle is masked
+     *
      * @param index
      * @return true if masked, false if not masked
      */
-    public boolean checkMaskLocated(int index)
-    {
+    public boolean checkMaskLocated(int index) {
         //if the hidden letter is masked return true
-        if(hiddenLetters.get(index) == "_")
-        {
+        if (hiddenLetters.get(index) == "_") {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-            
+
+    /**
+     * Method to check if the user won
+     */
+    private void checkWinStatus() {
+        //Set winflag to true, and if the puzzle contains any masks make it false
+        winFlag = true;
+        for (int i = 0; i < hiddenLetters.size(); i++) {
+
+            if (Arrays.asList("_").contains(hiddenLetters.get(i))) {
+                winFlag = false;
+            }
+        }
+
+        //if win flag is true, and show the board,tell the user congradulations you win!
+        if (winFlag) {
+            getPuzzleBoard();
+            System.out.println("Congradulations you win!");
+        }
+    }
 
     /**
      * Method to toggle the mask flag
