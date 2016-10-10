@@ -201,6 +201,7 @@ public class WheelOfFortune {
             if (puzzle.checkLetterContained(letterGuess) == false) {
                 System.out.println("Wrong. Game over.");
                 gameOverFlag = true;
+                break;
             }
             gameOverFlag = puzzle.getWinFlag();
             //Break if gameOverFlag is hit
